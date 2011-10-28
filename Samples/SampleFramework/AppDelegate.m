@@ -23,11 +23,12 @@ int ddLogLevel = LOG_LEVEL_VERBOSE;
     [super dealloc];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-	///
-	IKPNGImage* img = (IKPNGImage*)[IKPNGImage imageFromResource:@"sample.png"];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
+	UIImage* srcImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sample.png" ofType:nil]];
+
+	IKPNGImage* img = [IKPNGImage imageWithUIImage:srcImage];
+		
 	img.title = @"This is nice";
 	img.author = @"Pascal Vantrepote";
 	img.dpi = 150;

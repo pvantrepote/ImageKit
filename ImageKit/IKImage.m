@@ -43,6 +43,13 @@
 
 #pragma mark - Init/Dealloc
 
+-(id) initWithUIImage:(UIImage*) image {
+	if ((self = [super initWithCGImage:image.CGImage]) != nil) {
+	}
+	
+	return self;
+}
+
 -(void) dealloc {
 	[texts release];
 	
@@ -69,7 +76,11 @@
 
 #pragma mark - Overrides
 
-+(IKImage*) imageWithContentsOfFile:(NSString *)path {
++(id) imageWithUIImage:(UIImage*) image {
+	return [[[[self class] alloc] initWithCGImage:image.CGImage] autorelease];
+}
+
++(id) imageWithContentsOfFile:(NSString *)path {
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return nil;
 
 	NSString* extenstion = [path pathExtension];
@@ -80,7 +91,7 @@
 	return [[[IKImage alloc] initWithContentsOfFile:path] autorelease];
 }
 
-+(IKImage*) imageFromResource:(NSString *) rcsName {
++(id) imageWithResource:(NSString *) rcsName {
 	NSString* path = [[NSBundle mainBundle] pathForResource:rcsName ofType:nil];
 	return [self imageWithContentsOfFile:path];
 }
